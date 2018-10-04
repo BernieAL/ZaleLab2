@@ -4,7 +4,8 @@ public class demo {
 
 		public static void main(String[] args) {
 			
-			LockDataStructureClass temp = new LockDataStructureClass(7,13,19);
-			temp.turn();
+			LockDataStructureClass temp = new LockDataStructureClass(19,4,6);
+			
+			temp.attempt(19,4,6);
 		}
 }

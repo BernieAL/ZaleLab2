@@ -5,15 +5,15 @@ public interface LockADT {
 	
 public void alter();
 
-public void turn();
+public void turn(int n);
 
-public void close();
+public boolean close();
 
-public void attempt();
+public void attempt(int x, int y, int z);
 
-public void inquire();
+public boolean inquire();
 
-public void current();
+public int top();
 	
 	
 	
