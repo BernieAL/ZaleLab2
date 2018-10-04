@@ -3,15 +3,15 @@ package lab2ADT;
 public interface LockADT {
 
 	
-public void alter();
+public void alter(int x,int y, int z);
 
-public void turn(int n);
+public void turn(int lockNum,int comboNum );
 
 public boolean close();
 
 public void attempt(int x, int y, int z);
 
-public boolean inquire();
+public String inquire();
 
 public int top();
 	

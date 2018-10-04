@@ -2,14 +2,15 @@ package lab2ADT;
 
 public class LockDataStructureClass implements LockADT{
 	
-	private int x;
+	
 	private int xVal;
 	private int yVal;
 	private int zVal;
+	private int x;
 	private int y;
 	private int z;
 	private int top;
-	private boolean closed;
+	private boolean closed = false;
 	boolean comboMatch = false;
 	boolean xFound = false;
 	boolean yFound = false;
@@ -123,7 +124,7 @@ public void turn2(int userLockNum, int comboNum) {
 }
 	
 //--------------------------------------------------
-public void turn3(int lockNum, int comboNum) {
+public void turn(int lockNum, int comboNum) {
 	
 	
 	if(comboNum == 1) {
@@ -134,8 +135,9 @@ public void turn3(int lockNum, int comboNum) {
 				if(i == x){
 					xVal = i;
 					xFound = true;
-					System.out.println(" ");
-					System.out.println(" X Found");
+					top = i;
+					System.out.println("\nLock top: " + top);
+					System.out.println("X Found");
 					break;
 				}
 			}	
@@ -158,7 +160,8 @@ public void turn3(int lockNum, int comboNum) {
 					System.out.print(j + " ");
 					if(j == lockNum) {
 						yFound = true;
-						System.out.println(" ");
+						top = j;
+						System.out.println("\nLock top: " + top);
 						System.out.println("Y Found");
 						yVal = j;
 						break;
@@ -168,7 +171,7 @@ public void turn3(int lockNum, int comboNum) {
 			}
 //------------------------------------------			
 		} else if(comboNum == 3) {
-			
+			//pick up where y left off and go right to the num
 			for( int i = yVal;i >= 0;i--) {
 				System.out.print(i + " ");
 				zVal = i;
@@ -180,7 +183,8 @@ public void turn3(int lockNum, int comboNum) {
 				System.out.print(j + " ");
 				if(j == lockNum) {
 					zFound = true;
-					System.out.println(" ");
+					top = j;
+					System.out.println("\nLock top: " + top);
 					System.out.println("Z Found");
 					zVal = j;
 					break;
@@ -204,14 +208,14 @@ public void turn3(int lockNum, int comboNum) {
 
 @Override
 public void attempt(int x,int y, int z) {
-	turn3(x,1);
-	turn3(y,2);
-	turn3(z,3);
+	turn(x,1);
+	turn(y,2);
+	turn(z,3);
 	
 	
 	if(xFound == true && (yFound == true) && (zFound == true)) {
 		comboMatch = true;
-		System.out.println("lock opened");
+		System.out.println("Attempt successful: lock opened");
 	} else {
 		System.out.println("Lock closed, wrong combination");
 	}
@@ -219,13 +223,17 @@ public void attempt(int x,int y, int z) {
 }
 
 @Override
-public void alter() {
-	// TODO Auto-generated method stub
+public void alter(int xIn, int yIn,int zIn) {
+	x = xIn;
+	y = yIn;
+	z = zIn;
+	close();
 	
 }
 
 @Override
 public boolean close() {
+	closed = true;
 	return closed;
 	
 }
@@ -233,8 +241,12 @@ public boolean close() {
 
 
 @Override
-public boolean inquire() {
-	return closed;
+public String inquire() {
+	if(closed == true) {
+		return "Status: Locked";
+	} else {
+		return "Status: Not locked";
+	}
 	
 }
 
@@ -272,15 +284,16 @@ public void setZ(int z) {
 }
 
 
+@Override
 public String toString() {
-	return null;
+	return "LockDataStructureClass [x=" + x + ", xVal=" + xVal + ", yVal=" + yVal + ", zVal=" + zVal + ", y=" + y
+			+ ", z=" + z + ", top=" + top + ", closed=" + closed + ", comboMatch=" + comboMatch + ", xFound=" + xFound
+			+ ", yFound=" + yFound + ", zFound=" + zFound + "]";
 }
 
-@Override
-public void turn(int n) {
-	// TODO Auto-generated method stub
-	
-}
+
+
+
 
 
 }
